@@ -2,6 +2,16 @@
 <html lang="en">
 
 <head>
+  <script type = "text/javascript" >  
+    window.history.forward();
+        function noBack() {
+            window.history.forward();
+        }
+
+    function preventBack() { window.history.forward(); }  
+    setTimeout(preventBack(), 0);  
+    window.onunload = function () { null };  
+</script> 
   <script type="text/javascript">
     // show user current location
     function showLocation(position) {
@@ -172,7 +182,7 @@ opacity: 1;  ">
           </div>
           <div class="control-group" style="margin-top: 30px">
             <div class="btn-container">
-             
+
             </div>
           </div>
 
@@ -216,7 +226,7 @@ opacity: 1;  ">
                         position.coords.longitude,
                         position.coords.latitude,
                       ])
-                    
+
                       .addTo(map);
                   });
                 }

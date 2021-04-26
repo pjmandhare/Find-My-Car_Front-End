@@ -3,6 +3,10 @@
 
 <head>
   <script>
+      window.history.forward();
+        function noBack() {
+            window.history.forward();
+        }
     // function for user login
     function login(err) {
       let email = document.getElementById("email").value;
@@ -23,10 +27,15 @@
           },
           body: JSON.stringify(data),
         }).then(res => res.json()).then(ress => {
-          location.href = "Screens/Welcome.html"
-          alert('Logged In Succesfully')
+          if (ress.success) {
+            location.href = "Screens/Welcome.html"
+            alert('Logged In Succesfully')
+          } else {
+            alert('Incorrect User Name and Password')
+          }
+
         }).catch((err) => console.log(err, "err"));
-      }else{
+      } else {
         alert('Email and Password is Required')
       }
 
@@ -59,14 +68,16 @@
           </div> -->
 
           <div class="control-group" style="margin-bottom: 20px; margin-top: 10px">
-            <label class="control-label input-label" for="firstName" style="color: rgb(255, 255, 255) !important">E Mail</label>
+            <label class="control-label input-label" for="firstName" style="color: rgb(255, 255, 255) !important">E
+              Mail</label>
             <div class="controls">
               <input type="text" id="email" name="email" placeholder="E Mail" class="input-xlarge inputs-style" />
             </div>
           </div>
 
           <div class="control-group" style="margin-bottom: 20px">
-            <label class="control-label input-label" for="lastName" style="color :rgb(255, 255, 255)!important">Password</label>
+            <label class="control-label input-label" for="lastName"
+              style="color :rgb(255, 255, 255)!important">Password</label>
             <div class="controls">
               <input type="password" id="password" name="password" placeholder="Password"
                 class="input-xlarge inputs-style" />
