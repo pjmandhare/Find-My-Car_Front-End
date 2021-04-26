@@ -49,8 +49,12 @@
           body: JSON.stringify(data),
         })
           .then(res => res.json()).then(ress => {
-            location.href = "./Welcome.html"
-            alert('Registered In Succesfully')
+            document.getElementById("alert").style.display = "block";
+            document.getElementById("alert").innerHTML = "Register Succesfully!";
+            setTimeout(() => {
+              document.getElementById("alert").style.display = "none";
+              location.href = "./Welcome.html"
+            }, 3000);
           }).catch((err) => console.log(err, "err"));
       } else {
         alert('Please fill complete information')
@@ -67,6 +71,10 @@ opacity: 1;  ">
       <h3 class="card-title text-center" style="color:  rgb(255, 255, 255)">
         Find my Parked Car
       </h3>
+      <div id="alert" class="alert alert-success alert-dismissible" style="width:22.2rem !important; display:none">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Success!</strong>
+      </div>
       <!-- <div class="text-center">
         <img src="../assets/images/car.svg" alt="" width="20%" />
       </div> -->
