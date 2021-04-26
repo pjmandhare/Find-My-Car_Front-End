@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script>
+    // api for get remainging time
+    function getRemaningTime() {
+      fetch('https://car-parked-app.herokuapp.com/api/location/get', {
+        method: 'get',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+          token:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InpvaGFpYi5hbHZpMTJAZ21haWwuY29tIiwidXNlcklkIjoiNjA4MzE2YjM4YzE5OGMxODIwZTA1M2VjIiwiaWF0IjoxNjE5MjMyMjExLCJleHAiOjE2MTk0MDUwMTF9.3WAKivXTSmbDeIjbG9BkBaFWeaTS94je8smd5s4Q5hM",
+        },
+
+      }).then(res => res.json().then(ress => {
+        let date = new Date(ress.milliseconds).toISOString()
+        if (ress.milliseconds == 600000) {
+          alert("10 minutes remaining")
+        }else if(ress.milliseconds == 0){
+          alert("Your Time limit has reached!!")
+        }
+      })
+      ).catch(err => console.log(err, 'err'))
+    }
+    getRemaningTime()
+    setInterval(function () {
+      getRemaningTime()
+    }, 200000);
+
+  </script>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Car Parking</title>
+  <link href="../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body style="background-image: url(../assets/images/background1.jpg);
+background-size: cover;">
+  <div style=" background-color: #ffffff1a;
+opacity: 1;  ">
+    <article class="card-body mx-auto" style="max-width: 400px; height: 100%">
+      <h3 class="card-title text-center" style="color:rgb(255 255 255)">
+        Find my Parked Car
+      </h3>
+      <!-- <div class="text-center">
+          <img src="../assets/images/car.svg" alt="" width="20%" />
+        </div> -->
+      <form class="form-horizontal" action="" method="POST" style="margin-top: 50px">
+        <!-- <fieldset> -->
+        <h3 class="card-title text-center" style="margin-bottom: 30px; color:rgb(255 255 255)">
+          Head to Parking
+        </h3>
+        <div>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.521260322283!2d106.8195613507864!3d-6.194741395493371!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5390917b759%3A0x6b45e67356080477!2sPT%20Kulkul%20Teknologi%20Internasional!5e0!3m2!1sen!2sid!4v1601138221085!5m2!1sen!2sid"
+            width="100%" frameborder="0" allowfullscreen="false" aria-hidden="false" tabindex="0"></iframe>
+        </div>
+  </div>
+  <!-- </fieldset> -->
+  </form>
+  </article>
+  </div>
+</body>
+
+</html>
