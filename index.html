@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script>
+    // function for user login
+    function login(err) {
+      let email = document.getElementById("email").value;
+      let password = document.getElementById("password").value;
+      let data = {
+        email,
+        password,
+      };
+      // check validations for user input and login api call here
+      if (email !== "" && password !== "") {
+        fetch("https://car-parked-app.herokuapp.com/api/user/login", {
+          method: "POST",
+          mode: "cors",
+          cache: "no-cache",
+          credentials: "same-origin",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }).then(res => res.json()).then(ress => {
+          location.href = "Screens/Welcome.html"
+          alert('Logged In Succesfully')
+        }).catch((err) => console.log(err, "err"));
+      }else{
+        alert('Email and Password is Required')
+      }
+
+    }
+  </script>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Car Parking</title>
+  <link href="./assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="./assets/css/style.css" rel="stylesheet" />
+</head>
+
+<body style="background-image: url(./assets/images/background1.jpg);
+  background-size: cover;">
+  <div style=" background-color: #ffffff00;
+  opacity: 1;  ">
+    <article class="card-body mx-auto" style="max-width: 400px">
+      <h3 class="card-title text-center" style="color:  rgb(255, 255, 255)">
+        Find my Parked Car
+      </h3>
+      <!-- <div class="text-center">
+        <img src="./assets/images/car.svg" alt="" width="20%" />
+      </div> -->
+      <form class="form-horizontal" action="" method="POST" style="margin-top: 50px">
+        <fieldset>
+          <!-- <div>
+            <textarea rows="10" style="width: 100%">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores eveniet dolore dolorum cum delectus quas atque exercitationem culpa facilis doloribus debitis, quaerat expedita, adipisci architecto eos maiores impedit labore nulla. </textarea>
+          </div> -->
+
+          <div class="control-group" style="margin-bottom: 20px; margin-top: 10px">
+            <label class="control-label input-label" for="firstName" style="color: rgb(255, 255, 255) !important">E Mail</label>
+            <div class="controls">
+              <input type="text" id="email" name="email" placeholder="E Mail" class="input-xlarge inputs-style" />
+            </div>
+          </div>
+
+          <div class="control-group" style="margin-bottom: 20px">
+            <label class="control-label input-label" for="lastName" style="color :rgb(255, 255, 255)!important">Password</label>
+            <div class="controls">
+              <input type="password" id="password" name="password" placeholder="Password"
+                class="input-xlarge inputs-style" />
+              <!-- <p class="help-block">Please provide your E-mail</p> -->
+            </div>
+          </div>
+        </fieldset>
+      </form>
+      <div class="control-group">
+        <!-- Button -->
+        <div class="controls">
+          <a><button onclick="login()" class="btn btn-success" type="button">
+              Login
+            </button></a>
+        </div>
+        <div style="margin-top: 20px">
+          <p style="color:  rgb(255, 255, 255)">
+            New to Find my Parked Car?
+            <a href="./Screens/Register.html">Register Now</a>
+          </p>
+        </div>
+      </div>
+    </article>
+  </div>
+</body>
+
+</html>
