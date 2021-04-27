@@ -121,7 +121,7 @@
         let date = new Date(ress.milliseconds).toISOString()
         if (ress.milliseconds == 600000) {
           document.getElementById("alert").style.display = "block";
-          document.getElementById("alert").innerHTML = "10 minutes remaining!";
+          document.getElementById("alert").innerHTML = "You should head back to your car in [remaining time for the time stamp where location was saved] in order to avoid any fines given by fines Victoria to avoid any delays.";
           setTimeout(() => {
             document.getElementById("alert").style.display = "none";
           }, 3000);
