@@ -49,12 +49,15 @@
           body: JSON.stringify(data),
         })
           .then(res => res.json()).then(ress => {
-            document.getElementById("alert").style.display = "block";
-            document.getElementById("alert").innerHTML = "Register Succesfully!";
-            setTimeout(() => {
-              document.getElementById("alert").style.display = "none";
-              location.href = "./Welcome.html"
-            }, 3000);
+            if (ress.success) {
+              document.getElementById("alert").style.display = "block";
+              document.getElementById("alert").innerHTML = "Register Succesfully!";
+              setTimeout(() => {
+                document.getElementById("alert").style.display = "none";
+                location.href = "./Welcome.html"
+              }, 3000);
+            }
+
           }).catch((err) => console.log(err, "err"));
       } else {
         alert('Please fill complete information')
