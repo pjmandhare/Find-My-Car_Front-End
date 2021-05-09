@@ -270,21 +270,21 @@ opacity: 1;  ">
 
       function funName(pos) {
         // alert(JSON.stringify(pos))
-        let latitude = null
-        let longitude = null
-        fetch("https://car-parked-app.herokuapp.com/api/location/create", {
-          method: "POST",
+        var latitude = null
+        var longitude = null
+        // fetch("https://car-parked-app.herokuapp.com/api/location/create", {
+        //   method: "POST",
 
-          headers: {
-            "Content-Type": "application/json",
-            token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY0BhYmMuY29tIiwidXNlcklkIjoiNjA4NmIxNWNmOGMwOWEwMDE1MGQ3NWE0IiwiaWF0IjoxNjIwNTk4MzExLCJleHAiOjE2MjA3NzExMTF9.xwe9lukD4ZcKM--22p-Rv4m9UpN6hrsqLoi6R-j8FlI"
-          },
-          body: JSON.stringify(params),
-        })
-          .then((res) => {
-            console.log(res)
-          })
-          .catch((err) => console.log(err, "err"));
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //     token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY0BhYmMuY29tIiwidXNlcklkIjoiNjA4NmIxNWNmOGMwOWEwMDE1MGQ3NWE0IiwiaWF0IjoxNjIwNTk4MzExLCJleHAiOjE2MjA3NzExMTF9.xwe9lukD4ZcKM--22p-Rv4m9UpN6hrsqLoi6R-j8FlI"
+        //   },
+        //   body: JSON.stringify(params),
+        // })
+        //   .then((res) => {
+        //     console.log(res)
+        //   })
+        //   .catch((err) => console.log(err, "err"));
         request = {
           origin: new google.maps.LatLng(pos.lat, pos.lng),
           destination: new google.maps.LatLng(end_lat, end_lon),
