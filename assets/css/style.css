@@ -46,9 +46,12 @@
     }
 }
 
+
 /* -------------------------------------------------------------------------- */
 
+
 /* Parked Your Car Style */
+
 
 /* .location-btn {
     margin-right: 20px
@@ -99,4 +102,36 @@
         float: none;
         text-align: center;
     }
+}
+
+
+/* Streamlining the pages - Nathan */
+
+#whitetext {
+    color: rgb(255, 255, 255);
+    text-shadow: -0.8px -0.8px black, 0.8px 0.8px black, -0.8px 0.8px black, 0.8px -0.8px black;
+}
+
+#maincontent {
+    border: 1px solid black;
+    margin: auto;
+    height: max-content;
+    width: max-content;
+    background-color: rgba(169, 169, 169, 0.8);
+}
+
+#body {
+    background-image: url(../images/background1.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: darkgray;
+}
+
+.form-control {
+    width: auto;
+    display: inline-block;
+}
+
+input {
+    text-align: center;
 }

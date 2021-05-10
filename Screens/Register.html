@@ -2,171 +2,162 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Car Parking</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Car Parking</title>
 
-  <link href="../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="../assets/css/style.css" />
-  <script>
-    // function for user signup
-    function signUp(err) {
-      let firstName = document.getElementById("firstName").value;
-      let lastname = document.getElementById("lastName").value;
-      let date = document.getElementById("date").value;
-      let email = document.getElementById("email").value;
-      let phone = document.getElementById("phone").value;
-      let license = document.getElementById("license").value;
-      let registration = document.getElementById("reg").value;
-      let password = document.getElementById("password").value;
-      let data = {
-        firstName,
-        lastName: lastname,
-        datOfBirth: date,
-        email,
-        phoneNo: phone,
-        liecenseNo: license,
-        carRegistration: registration,
-        password,
-      };
-      // check validations for user input and register api call here
-      if (email !== "" &&
-        password !== "" &&
-        firstName !== "" &&
-        lastname !== "" &&
-        license !== "" &&
-        registration !== ""
-      ) {
-        fetch("https://car-parked-app.herokuapp.com/api/user/register", {
-          method: "POST",
-          mode: "cors",
-          cache: "no-cache",
-          credentials: "same-origin",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        })
-          .then(res => res.json()).then(ress => {
-            if (ress.success) {
-              document.getElementById("alert").style.display = "block";
-              document.getElementById("alert").innerHTML = "Register Succesfully!";
-              setTimeout(() => {
-                document.getElementById("alert").style.display = "none";
-                location.href = "./Welcome.html"
-              }, 3000);
+    <link href="../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../assets/css/style.css" rel="stylesheet" />
+    <script>
+        // function for user signup
+        function signUp(err) {
+            let firstName = document.getElementById("firstName").value;
+            let lastname = document.getElementById("lastName").value;
+            let date = document.getElementById("date").value;
+            let email = document.getElementById("email").value;
+            let phone = document.getElementById("phone").value;
+            let license = document.getElementById("license").value;
+            let registration = document.getElementById("reg").value;
+            let password = document.getElementById("password").value;
+            let data = {
+                firstName,
+                lastName: lastname,
+                datOfBirth: date,
+                email,
+                phoneNo: phone,
+                liecenseNo: license,
+                carRegistration: registration,
+                password,
+            };
+            // check validations for user input and register api call here
+            if (email !== "" &&
+                password !== "" &&
+                firstName !== "" &&
+                lastname !== "" &&
+                license !== "" &&
+                registration !== ""
+            ) {
+                fetch("https://car-parked-app.herokuapp.com/api/user/register", {
+                        method: "POST",
+                        mode: "cors",
+                        cache: "no-cache",
+                        credentials: "same-origin",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(data),
+                    })
+                    .then(res => res.json()).then(ress => {
+                        if (ress.success) {
+                            document.getElementById("alert").style.display = "block";
+                            document.getElementById("alert").innerHTML = "Register Succesfully!";
+                            setTimeout(() => {
+                                document.getElementById("alert").style.display = "none";
+                                location.href = "./Welcome.html"
+                            }, 3000);
+                        }
+
+                    }).catch((err) => console.log(err, "err"));
+            } else {
+                alert('Please fill complete information')
             }
-
-          }).catch((err) => console.log(err, "err"));
-      } else {
-        alert('Please fill complete information')
-      }
-    }
-  </script>
+        }
+    </script>
 </head>
 
-<body style="background-image: url(../assets/images/background1.jpg);
-background-size: cover;">  
-  <div style=" background-color: #ffffff1a;
-opacity: 1;  ">
-    <article class="card-body mx-auto" style="max-width: 400px">
-      <h3 class="card-title text-center" style="color:  rgb(255, 255, 255)">
-        Find my Parked Car
-      </h3>
-      <div id="alert" class="alert alert-success alert-dismissible" style="width:22.2rem !important; display:none">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <strong>Success!</strong>
-      </div>
-      <!-- <div class="text-center">
+<body id="body">
+    <div class="d-flex" id="box">
+        <article class="card-body mx-auto" style="max-width: 400px" id="maincontent">
+            <h3 class="card-title text-center" id="whitetext">Find my Parked Car</h3>
+
+            <div id="alert" class="alert alert-success alert-dismissible" style="width:22.2rem !important; display:none">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Success!</strong>
+            </div>
+
+            <!-- <div class="text-center">
         <img src="../assets/images/car.svg" alt="" width="20%" />
       </div> -->
-      <form class="form-horizontal" action="" method="POST" style="margin-top: 50px">
-        <fieldset>
-          <h4 class="card-title text-left" style="margin-bottom: 25px; color:  rgb(255, 255, 255)">
-            Register
-          </h4>
-          <div class="control-group reg-inputs">
-            <label class="control-label input-label" style="color:  rgb(255, 255, 255)" for="firstName">First
-              Name</label>
-            <div class="controls">
-              <input type="text" id="firstName" name="firstName" placeholder="First Name"
-                class="input-xlarge inputs-style" />
-            </div>
-          </div>
 
-          <div class="control-group reg-inputs">
-            <label class="control-label input-label" style="color:  rgb(255, 255, 255)" for="lastName">Last Name</label>
-            <div class="controls">
-              <input type="text" id="lastName" name="lastName" placeholder="Last Name"
-                class="input-xlarge inputs-style" />
-              <!-- <p class="help-block">Please provide your E-mail</p> -->
-            </div>
-          </div>
+            <form class="form-horizontal" action="" method="POST" style="margin-top: 50px">
+                <fieldset>
+                    <h4 class="card-title text-left" id="whitetext">Register</h4>
+                    <div class="control-group reg-inputs">
+                        <label class="control-label input-label" id="whitetext" for="firstName">First Name</label>
+                        <div class="controls">
+                            <input type="text" id="firstName" name="firstName" placeholder="First Name" class="input-xlarge inputs-style" />
+                        </div>
+                    </div>
 
-          <div class="control-group reg-inputs">
-            <!-- Password-->
-            <label class="control-label input-label" style="color:  rgb(255, 255, 255)" for="date">Date of Birth</label>
-            <div class="controls">
-              <input type="date" id="date" name="date" placeholder="" class="input-xlarge inputs-style" />
-              <!-- <p class="help-block">
+                    <div class="control-group reg-inputs">
+                        <label class="control-label input-label" id="whitetext" for="lastName">Last Name</label>
+                        <div class="controls">
+                            <input type="text" id="lastName" name="lastName" placeholder="Last Name" class="input-xlarge inputs-style" />
+                            <!-- <p class="help-block">Please provide your E-mail</p> -->
+                        </div>
+                    </div>
+
+                    <div class="control-group reg-inputs">
+                        <!-- Password-->
+                        <label class="control-label input-label" id="whitetext" for="date">Date of Birth</label>
+                        <div class="controls">
+                            <input type="date" id="date" name="date" placeholder="" class="input-xlarge inputs-style" />
+                            <!-- <p class="help-block">
                   Password should be at least 4 characters
                 </p> -->
-            </div>
-          </div>
+                        </div>
+                    </div>
 
-          <div class="control-group reg-inputs">
-            <label class="control-label input-label" style="color:  rgb(255, 255, 255)" for="email">Email
+                    <div class="control-group reg-inputs">
+                        <label class="control-label input-label" id="whitetext" for="email">Email
               Address</label>
-            <div class="controls">
-              <input type="text" id="email" name="email" placeholder="Email Address"
-                class="input-xlarge inputs-style" />
-            </div>
-          </div>
-          <div class="control-group reg-inputs">
-            <label class="control-label input-label" style="color:  rgb(255, 255, 255)" for="lastName">Password</label>
-            <div class="controls">
-              <input type="password" id="password" name="password" placeholder="Password"
-                class="input-xlarge inputs-style" />
-              <!-- <p class="help-block">Please provide your E-mail</p> -->
-            </div>
-          </div>
+                        <div class="controls">
+                            <input type="text" id="email" name="email" placeholder="Email Address" class="input-xlarge inputs-style" />
+                        </div>
+                    </div>
+                    <div class="control-group reg-inputs">
+                        <label class="control-label input-label" id="whitetext" for="lastName">Password</label>
+                        <div class="controls">
+                            <input type="password" id="password" name="password" placeholder="Password" class="input-xlarge inputs-style" />
+                            <!-- <p class="help-block">Please provide your E-mail</p> -->
+                        </div>
+                    </div>
 
-          <div class="control-group reg-inputs">
-            <label class="control-label input-label" style="color:  rgb(255, 255, 255)" for="phone">Phone Number</label>
-            <div class="controls">
-              <input type="text" id="phone" name="phone" placeholder="Phone Number" class="input-xlarge inputs-style" />
-            </div>
-          </div>
-          <div class="control-group reg-inputs">
-            <label class="control-label input-label" style="color:  rgb(255, 255, 255)" for="license">License
+                    <div class="control-group reg-inputs">
+                        <label class="control-label input-label" id="whitetext" for="phone">Phone Number</label>
+                        <div class="controls">
+                            <input type="text" id="phone" name="phone" placeholder="Phone Number" class="input-xlarge inputs-style" />
+                        </div>
+                    </div>
+                    <div class="control-group reg-inputs">
+                        <label class="control-label input-label" id="whitetext" for="license">License
               Number</label>
-            <div class="controls">
-              <input type="text" id="license" name="license" placeholder="License Number"
-                class="input-xlarge inputs-style" />
-            </div>
-          </div>
+                        <div class="controls">
+                            <input type="text" id="license" name="license" placeholder="License Number" class="input-xlarge inputs-style" />
+                        </div>
+                    </div>
 
-          <div class="control-group reg-inputs">
-            <label class="control-label input-label" style="color:  rgb(255, 255, 255)" for="reg">Car
+                    <div class="control-group reg-inputs">
+                        <label class="control-label input-label" id="whitetext" for="reg">Car
               Registration</label>
+                        <div class="controls">
+                            <input type="text" id="reg" name="reg" placeholder="Car Registration" class="input-xlarge inputs-style" />
+                        </div>
+                    </div>
+                    <div>
+                        <p id="whitetext">
+                            already have an account?
+                            <a href="../index.html">Login</a>
+                        </p>
+                    </div>
+                </fieldset>
+            </form>
             <div class="controls">
-              <input type="text" id="reg" name="reg" placeholder="Car Registration" class="input-xlarge inputs-style" />
+                <button class="btn btn-success" onclick="signUp()">Save</button>
             </div>
-          </div>
-          <div>
-            <p style="color:  rgb(255, 255, 255)">
-              already have an account?
-              <a href="../index.html">Login</a>
-            </p>
-          </div>
-        </fieldset>
-      </form>
-      <div class="controls">
-        <button class="btn btn-success" onclick="signUp()">Save</button>
-      </div>
-    </article>
-  </div>
+        </article>
+    </div>
 </body>
 
 </html>
