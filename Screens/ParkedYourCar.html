@@ -47,6 +47,8 @@
       }
     }
     function callApi(location) {
+      var token = JSON.parse(localStorage.getItem("user_token"))
+
       // function for get user current location 
       let resasdasd = document.getElementById("mapholder");
       var hours = document.getElementById("hours").value;
@@ -67,9 +69,8 @@
 
           headers: {
             "Content-Type": "application/json",
-            token:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InpvaGFpYi5hbHZpMTJAZ21haWwuY29tIiwidXNlcklkIjoiNjA4MzE2YjM4YzE5OGMxODIwZTA1M2VjIiwiaWF0IjoxNjE5MjMyMjExLCJleHAiOjE2MTk0MDUwMTF9.3WAKivXTSmbDeIjbG9BkBaFWeaTS94je8smd5s4Q5hM",
-          },
+            token
+                      },
           body: JSON.stringify(params),
         })
           .then((res) => {
@@ -106,6 +107,8 @@
     // api for get remainging time
 
     function getRemaningTime() {
+      var token = JSON.parse(localStorage.getItem("user_token"))
+
       fetch('https://car-parked-app.herokuapp.com/api/location/get', {
         method: 'get',
         mode: 'cors',
@@ -113,8 +116,7 @@
         credentials: 'same-origin',
         headers: {
           'Content-Type': 'application/json',
-          token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InpvaGFpYi5hbHZpMTJAZ21haWwuY29tIiwidXNlcklkIjoiNjA4MzE2YjM4YzE5OGMxODIwZTA1M2VjIiwiaWF0IjoxNjE5MjMyMjExLCJleHAiOjE2MTk0MDUwMTF9.3WAKivXTSmbDeIjbG9BkBaFWeaTS94je8smd5s4Q5hM",
+          token
         },
 
       }).then(res => res.json().then(ress => {
