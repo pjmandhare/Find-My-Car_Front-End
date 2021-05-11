@@ -2,62 +2,71 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Car Parking</title>
-    <link href="../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="../assets/css/style.css" rel="stylesheet" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Car Parking</title>
+  <link href="../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../assets/css/style.css" rel="stylesheet" />
 </head>
 <script>
-    function logout() {
-        localStorage.clear()
-        location.href = "../index.html"
+  function logout() {
+    localStorage.clear()
+    location.href = "../index.html"
 
-    }
+  }
 </script>
 
 <body id="body">
-    <div class="d-flex" id="box">
-        <article class="card-body mx-auto" style="max-width: 400px; height: 100%" id="maincontent">
-            <h3 class="card-title text-center" id="whitetext">
-                Find my Parked Car
-            </h3>
-            <!-- <div class="text-center">
+  <div class="d-flex" id="box">
+    <article class="card-body mx-auto" style="max-width: 400px; height: 100%" id="maincontent">
+      <h3 class="card-title text-center" id="whitetext">
+        Find my Parked Car
+      </h3>
+      <!-- <div class="text-center">
           <img src="../assets/images/car.svg" alt="" width="20%" />
         </div> -->
-            <form class="form-horizontal" action="" method="POST" style="margin-top: 50px">
-                <h3 class="card-title text-center" id="whitetext">
-                    Welcome User!
-                </h3>
+      <form class="form-horizontal" action="" method="POST" style="margin-top: 50px">
+        <h3 class="card-title text-center" id="whitetext">
+          Welcome User!
+        </h3>
 
-                <div class="text-center">
-                    <a href="./ParkedYourCar.html"><button class="btn btn-primary user-btn" type="button">
+        <div class="text-center">
+          <a href="./ParkedYourCar.html"><button class="btn btn-primary user-btn" type="button">
               Save my Location
             </button></a>
-                </div>
+        </div>
 
-                <div class="text-center mt-4">
-                    <a href="./HeadToParking.html">
-                        <button class="btn btn-primary user-btn" type="button">
+        <div class="text-center mt-4">
+          <a href="./HeadToParking.html">
+            <button class="btn btn-primary user-btn" type="button">
               as is Moving
             </button>
-                    </a>
-                </div>
-                <br><br>
+          </a>
+        </div>
 
-                <div class="control-group">
-                    <div class="controls text-center">
-                        <a>
-                            <button onclick="logout()" class="btn btn-success" type="button">Logout</button>
-                        </a>
-                    </div>
-                </div>
-            </form>
-        </article>
-        <div style="height: 146px;"></div>
+        <div class="text-center mt-4">
+          <a href="./availableSlots.html">
+            <button class="btn btn-primary user-btn" type="button">
+              Available Slots
+            </button>
+          </a>
+        </div>
+        
+        <br><br>
 
-    </div>
+        <div class="control-group">
+          <div class="controls text-center">
+            <a>
+              <button onclick="logout()" class="btn btn-success" type="button">Logout</button>
+            </a>
+          </div>
+        </div>
+      </form>
+    </article>
+    <div style="height: 146px;"></div>
+
+  </div>
 </body>
 
 </html>
