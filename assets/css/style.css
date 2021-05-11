@@ -95,9 +95,6 @@
     .custom-row {
         flex-direction: column-reverse;
     }
-    .my-form {
-        margin-top: 600px;
-    }
     .parked {
         float: none;
         text-align: center;
@@ -110,6 +107,7 @@
 #whitetext {
     color: rgb(255, 255, 255);
     text-shadow: -0.8px -0.8px black, 0.8px 0.8px black, -0.8px 0.8px black, 0.8px -0.8px black;
+    text-align: center;
 }
 
 #maincontent {
@@ -124,7 +122,7 @@
     background-image: url(../images/background1.jpg);
     background-size: cover;
     background-repeat: no-repeat;
-    background-color: darkgray;
+    background-color: rgb(37, 31, 31);
 }
 
 .form-control {

@@ -8,7 +8,7 @@
             background-color: #f44336;
             color: white;
         }
-        
+
         .closebtn {
             margin-left: 15px;
             color: white;
@@ -19,7 +19,7 @@
             cursor: pointer;
             transition: 0.3s;
         }
-        
+
         .closebtn:hover {
             color: black;
         }
@@ -35,7 +35,7 @@
             window.history.forward();
         }
         setTimeout(preventBack(), 0);
-        window.onunload = function() {
+        window.onunload = function () {
             null
         };
     </script>
@@ -70,14 +70,14 @@
                     longitude: location.coords.longitude,
                 };
                 fetch("https://car-parked-app.herokuapp.com/api/location/create", {
-                        method: "POST",
+                    method: "POST",
 
-                        headers: {
-                            "Content-Type": "application/json",
-                            token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InpvaGFpYi5hbHZpMTJAZ21haWwuY29tIiwidXNlcklkIjoiNjA4MzE2YjM4YzE5OGMxODIwZTA1M2VjIiwiaWF0IjoxNjE5MjMyMjExLCJleHAiOjE2MTk0MDUwMTF9.3WAKivXTSmbDeIjbG9BkBaFWeaTS94je8smd5s4Q5hM",
-                        },
-                        body: JSON.stringify(params),
-                    })
+                    headers: {
+                        "Content-Type": "application/json",
+                        token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InpvaGFpYi5hbHZpMTJAZ21haWwuY29tIiwidXNlcklkIjoiNjA4MzE2YjM4YzE5OGMxODIwZTA1M2VjIiwiaWF0IjoxNjE5MjMyMjExLCJleHAiOjE2MTk0MDUwMTF9.3WAKivXTSmbDeIjbG9BkBaFWeaTS94je8smd5s4Q5hM",
+                    },
+                    body: JSON.stringify(params),
+                })
                     .then((res) => {
                         document.getElementById("hours").value = '';
                         document.getElementById("minutes").value = '';
@@ -145,7 +145,7 @@
             })).catch(err => console.log(err, 'err'))
         }
         getRemaningTime()
-        setInterval(function() {
+        setInterval(function () {
             getRemaningTime()
         }, 200000);
     </script>
@@ -170,7 +170,7 @@
             margin-left: 15px;
             /* display: flex; */
         }
-        
+
         @media screen and (max-width: 960px) {
             #map {
                 width: 90%;
@@ -178,11 +178,9 @@
                 margin-top: 15px;
                 margin-left: 0px;
             }
-            .parked {
-                margin-top: -70%
-            }
+
         }
-        
+
         .marker {
             background-image: url("./map.png");
             background-size: cover;
@@ -201,86 +199,107 @@
                 <div class="row custom-row">
                     <div class="col-xs-6 my-form">
                         <div class="parked">
-                            <div id="alert" class="alert alert-success alert-dismissible" style="width:22.2rem !important; display:none">
+                            <div id="alert" class="alert alert-success alert-dismissible"
+                                style="width:22.2rem !important; display:none">
                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                 <strong>Success!</strong>
                             </div>
                             <h3 class="card-title text-center" id="whitetext">
                                 Find my Parked Car
                             </h3>
-                            <h4 class="card-title" id="whitetext">
-                                Have you Parked your car?
-                            </h4>
-                            <h3 id="whitetext">How much time will you stay?</h3>
+                            <h4 id="whitetext">How much time will you stay?</h4>
+                            <br>
+                            <div class="row">
+                                <div class="col"></div>
+                                <div class="col">
+                                    <form method="POST">
+                                        <label id="whitetext">Hours:</label>
+                                </div>
+                                <div class="col">
+                                    <input class="form" type="number" name="hours" id="hours" maxlength="100" size="20"
+                                        style="width: 200px; margin-left: 15px" />
+                                </div>
+                                <div class="col"></div>
+                            </div>
 
-                            <form method="POST">
-                                <label id="whitetext">Hours:</label>
-                                <input class="form" type="number" name="hours" id="hours" maxlength="100" size="20" style="width: 200px; margin-left: 15px" />
-                                <br />
-                                <label id="whitetext">Minutes :</label>
-                                <input class="form" name="number" type="minutes" id="minutes" maxlength="16" size="20" style="width: 200px" /><br /><br />
+                            <br />
+                            <div class="row">
+                                <div class="col"></div>
+                                <div class="col">
+                                    <label id="whitetext">Minutes:</label>
+                                </div>
+                                <div class="col">
+                                    <input class="form" name="number" type="minutes" id="minutes" maxlength="16"
+                                        size="20" style="width: 200px" />
+                                    <br /><br />
+                                </div>
+                                <div class="col"></div>
+                            </div>
                             </form>
-                            <input type="submit" name="submit" onclick="getLocation()" />
+                            <button type="button" class="btn btn-success btn-lg btn-block" name="submit"
+                                onclick="getLocation()">Submit</button>
                         </div>
 
                     </div>
-                    <div class="control-group" style="margin-top: 30px">
-                        <div class="btn-container">
 
-                        </div>
+                </div>
+                <div class="control-group" style="margin-top: 30px">
+                    <div class="btn-container">
+
                     </div>
+                </div>
 
 
-                    <div class="col-xs-6">
-                        <div style="width: 100%">
-                            <div id="map"></div>
-                            <script>
-                                // TO MAKE THE MAP APPEAR YOU MUST
-                                // ADD YOUR ACCESS TOKEN FROM
-                                // https://account.mapbox.com
-                                mapboxgl.accessToken =
-                                    "pk.eyJ1IjoiMTZrLTM4NTAiLCJhIjoiY2sxNmlwajd0MGgydDNubjYyNXMzd29jMyJ9.qNco5G3W3sri_NVZgDndZQ";
-                                if ("geolocation" in navigator) {
-                                    navigator.geolocation.getCurrentPosition((position) => {
-                                        var map = new mapboxgl.Map({
-                                            container: "map", // container id
-                                            style: "mapbox://styles/16k-3850/ck19lbwau0ebq1cqzqxunfojm", // style URL
-                                            center: [
-                                                position.coords.longitude,
-                                                position.coords.latitude,
-                                            ],
-                                            zoom: 14, // starting zoom
-                                        });
-                                        map.addControl(
-                                            new mapboxgl.GeolocateControl({
-                                                positionOptions: {
-                                                    enableHighAccuracy: true,
-                                                },
-                                                trackUserLocation: true,
-                                                zoom: 12,
-                                                // getLocation
-                                            })
-                                        );
-                                        var el = document.createElement("div");
-                                        el.className = "marker";
+                <div class="col-xs-6">
+                    <div style="width: 100%">
+                        <div id="map"></div>
+                        <script>
+                            // TO MAKE THE MAP APPEAR YOU MUST
+                            // ADD YOUR ACCESS TOKEN FROM
+                            // https://account.mapbox.com
+                            mapboxgl.accessToken =
+                                "pk.eyJ1IjoiMTZrLTM4NTAiLCJhIjoiY2sxNmlwajd0MGgydDNubjYyNXMzd29jMyJ9.qNco5G3W3sri_NVZgDndZQ";
+                            if ("geolocation" in navigator) {
+                                navigator.geolocation.getCurrentPosition((position) => {
+                                    var map = new mapboxgl.Map({
+                                        container: "map", // container id
+                                        style: "mapbox://styles/16k-3850/ck19lbwau0ebq1cqzqxunfojm", // style URL
+                                        center: [
+                                            position.coords.longitude,
+                                            position.coords.latitude,
+                                        ],
+                                        zoom: 14, // starting zoom
+                                    });
+                                    map.addControl(
+                                        new mapboxgl.GeolocateControl({
+                                            positionOptions: {
+                                                enableHighAccuracy: true,
+                                            },
+                                            trackUserLocation: true,
+                                            zoom: 12,
+                                            // getLocation
+                                        })
+                                    );
+                                    var el = document.createElement("div");
+                                    el.className = "marker";
 
-                                        // make a marker for each feature and add it to the map
-                                        new mapboxgl.Marker(el)
-                                            .setLngLat([
-                                                position.coords.longitude,
-                                                position.coords.latitude,
-                                            ])
+                                    // make a marker for each feature and add it to the map
+                                    new mapboxgl.Marker(el)
+                                        .setLngLat([
+                                            position.coords.longitude,
+                                            position.coords.latitude,
+                                        ])
 
                                         .addTo(map);
-                                    });
-                                }
-                            </script>
-                        </div>
+                                });
+                            }
+                        </script>
                     </div>
                 </div>
             </div>
-            <!-- </div> -->
-        </article>
+    </div>
+    <!-- </div> -->
+    </article>
     </div>
 </body>
 
