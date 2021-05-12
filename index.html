@@ -2,120 +2,145 @@
 <html lang="en">
 
 <head>
-  <script>
-    let token = localStorage.getItem('user_token')
-    console.log('tokentokentoken', token)
-    if (token) {
-      location.href = "Screens/Welcome.html"
-    }
-    window.history.forward();
-    function noBack() {
-      window.history.forward();
-    }
-    // function for user login
-    function login(err) {
-      let email = document.getElementById("email").value;
-      let password = document.getElementById("password").value;
-      let data = {
-        email,
-        password,
-      };
-      // check validations for user input and login api call here
-      if (email !== "" && password !== "") {
-        fetch("https://car-parked-app.herokuapp.com/api/user/login", {
-          method: "POST",
-          mode: "cors",
-          cache: "no-cache",
-          credentials: "same-origin",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }).then(res => res.json()).then(ress => {
-          if (ress.success) {
-            localStorage.setItem('user_token', JSON.stringify(ress.token))
-            document.getElementById("alert").style.display = "block";
-            document.getElementById("alert").innerHTML = "Login Succesfully!";
-            setTimeout(() => {
-              document.getElementById("alert").style.display = "none";
-              location.href = "Screens/Welcome.html"
-            }, 1000);
-          } else {
-            alert('Incorrect User Name and Password')
-          }
+    <script>
+        let token = localStorage.getItem('user_token')
+        console.log('tokentokentoken', token)
+        if (token) {
+            location.href = "Screens/Welcome.html"
+        }
+        window.history.forward();
 
-        }).catch((err) => console.log(err, "err"));
-      } else {
-        alert('Email and Password is Required')
-      }
+        function noBack() {
+            window.history.forward();
+        }
+        // function for user login
+        function login(err) {
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("password").value;
+            let data = {
+                email,
+                password,
+            };
+            // check validations for user input and login api call here
+            if (email !== "" && password !== "") {
+                fetch("https://car-parked-app.herokuapp.com/api/user/login", {
+                    method: "POST",
+                    mode: "cors",
+                    cache: "no-cache",
+                    credentials: "same-origin",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(data),
+                }).then(res => res.json()).then(ress => {
+                    if (ress.success) {
+                        localStorage.setItem('user_token', JSON.stringify(ress.token))
+                        document.getElementById("alert").style.display = "block";
+                        document.getElementById("alert").innerHTML = "Login Succesfully!";
+                        setTimeout(() => {
+                            document.getElementById("alert").style.display = "none";
+                            location.href = "Screens/Welcome.html"
+                        }, 1000);
+                    } else {
+                        alert('Incorrect User Name and Password')
+                    }
 
-    }
-  </script>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Car Parking</title>
-  <link href="./assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="./assets/css/style.css" rel="stylesheet" />
+                }).catch((err) => console.log(err, "err"));
+            } else {
+                alert('Email and Password is Required')
+            }
+
+        }
+    </script>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Car Parking</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <!-- <link href="./assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" /> -->
+    <link rel="stylesheet" type="text/css" href="./assets/css/style.css" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <!--BY Edwin-->
+
 </head>
 
 <body style="background-image: url(./assets/images/background1.jpg);
   background-size: cover;">
-  <div style=" background-color: #ffffff00;
+    <div style=" background-color: #ffffff00;
   opacity: 1;  ">
-    <article class="card-body mx-auto" style="max-width: 400px">
-      <h3 class="card-title text-center" style="color:  rgb(255, 255, 255)">
-        Find my Parked Car
-      </h3>
-      <div id="alert" class="alert alert-success alert-dismissible" style="width:22.2rem !important; display:none">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <strong>Success!</strong>
-      </div>
-      <!-- <div class="text-center">
+        <article class="card-body mx-auto" style="max-width: 400px">
+            <h3 class="card-title text-center" style="color:  rgb(255, 255, 255)">
+                Find my Parked Car
+            </h3>
+            <div id="alert" class="alert alert-success alert-dismissible" style="width:22.2rem !important; display:none">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Success!</strong>
+            </div>
+            <!-- <div class="text-center">
         <img src="./assets/images/car.svg" alt="" width="20%" />
       </div> -->
-      <form class="form-horizontal" action="" method="POST" style="margin-top: 50px">
-        <fieldset>
-          <!-- <div>
+            <form class="form-horizontal" action="" method="POST" style="margin-top: 50px">
+                <fieldset>
+                    <!-- <div>
             <textarea rows="10" style="width: 100%">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores eveniet dolore dolorum cum delectus quas atque exercitationem culpa facilis doloribus debitis, quaerat expedita, adipisci architecto eos maiores impedit labore nulla. </textarea>
           </div> -->
 
-          <div class="control-group" style="margin-bottom: 20px; margin-top: 10px">
-            <label class="control-label input-label" for="firstName" style="color: rgb(255, 255, 255) !important">E
+                    <div class="control-group" style="margin-bottom: 20px; margin-top: 10px">
+                        <label class="control-label input-label" for="firstName" style="color: rgb(255, 255, 255) !important">E
               Mail</label>
-            <div class="controls">
-              <input type="text" id="email" name="email" placeholder="E Mail" class="input-xlarge inputs-style" />
-            </div>
-          </div>
+                        <div class="controls">
+                            <input type="text" id="email" name="email" placeholder="E Mail" class="input-xlarge inputs-style" />
+                        </div>
+                    </div>
 
-          <div class="control-group" style="margin-bottom: 20px">
-            <label class="control-label input-label" for="lastName"
-              style="color :rgb(255, 255, 255)!important">Password</label>
-            <div class="controls">
-              <input type="password" id="password" name="password" placeholder="Password"
-                class="input-xlarge inputs-style" />
-              <!-- <p class="help-block">Please provide your E-mail</p> -->
-            </div>
-          </div>
-        </fieldset>
-      </form>
-      <div class="control-group">
-        <!-- Button -->
-        <div class="controls">
-          <a><button onclick="login()" class="btn btn-success" type="button">
+                    <div class="control-group" style="margin-bottom: 20px">
+                        <label class="control-label input-label" for="lastName" style="color :rgb(255, 255, 255)!important">Password</label>
+                        <div class="controls">
+                            <input type="password" id="password" name="password" placeholder="Password" class="input-xlarge inputs-style" />
+                            <!-- <p class="help-block">Please provide your E-mail</p> -->
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            <div class="control-group">
+                <!-- Button -->
+                <div class="controls">
+                    <a><button onclick="login()" class="btn btn-success" type="button">
               Login
             </button></a>
+                </div>
+                <div style="margin-top: 20px">
+                    <p style="color:  rgb(255, 255, 255)">
+                        New to Find my Parked Car?
+                        <a href="./Screens/Register.html">Register Now</a>
+                    </p>
+                </div>
+                <div style="margin-top: 20px">
+                    <p style="color:  rgb(255, 255, 255)">
+                        -------------------------------------<br>
+                        <div href="/google" id="googleid" class="btn btn-danger"><span class="fa fa-google-plus"></span> Google</div>
+                        <div href="/facebook" id="facebookid" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</div>
+                    </p>
+                </div>
+        </article>
         </div>
-        <div style="margin-top: 20px">
-          <p style="color:  rgb(255, 255, 255)">
-            New to Find my Parked Car?
-            <a href="./Screens/Register.html">Register Now</a>
-          </p>
-        </div>
-      </div>
-    </article>
-  </div>
+        <script>
+            // axios.get('http://127.0.0.1:8000/google', (res) => {
+            //     console.log(res)
+            // })
+            document.getElementById("googleid").addEventListener("click", function() {
+                    window.open('http://127.0.0.1:8000/google')
+                }) //by edwin
+        </script>
+        <script>
+            // axios.get('http://127.0.0.1:8000/google', (res) => {
+            //     console.log(res)
+            // })
+            document.getElementById("facebookid").addEventListener("click", function() {
+                    window.open('http://127.0.0.1:8000/facebook')
+                }) //by edwin
+        </script>
 </body>
 
 </html>

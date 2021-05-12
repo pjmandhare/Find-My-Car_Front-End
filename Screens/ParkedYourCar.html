@@ -2,293 +2,301 @@
 <html lang="en">
 
 <head>
-  <style>
-    .alert {
-      padding: 20px;
-      background-color: #f44336;
-      color: white;
-    }
-
-    .closebtn {
-      margin-left: 15px;
-      color: white;
-      font-weight: bold;
-      float: right;
-      font-size: 22px;
-      line-height: 20px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .closebtn:hover {
-      color: black;
-    }
-  </style>
-  <script type="text/javascript">
-    window.history.forward();
-    function noBack() {
-      window.history.forward();
-    }
-
-    function preventBack() { window.history.forward(); }
-    setTimeout(preventBack(), 0);
-    window.onunload = function () { null };
-  </script>
-  <script type="text/javascript">
-    // show user current location
-    function showLocation(position) {
-      callApi(position);
-    }
-    function errorHandler(err) {
-      if (err.code == 1) {
-        alert("Error: Access is denied!");
-      } else if (err.code == 2) {
-        alert("Error: Position is unavailable!");
-      }
-    }
-    function callApi(location) {
-      var token = JSON.parse(localStorage.getItem("user_token"))
-
-      // function for get user current location 
-      let resasdasd = document.getElementById("mapholder");
-      var hours = document.getElementById("hours").value;
-      var minutes = document.getElementById("minutes").value;
-      if (minutes > 59) {
-        alert("minutes must be less than 60");
-      }
-      if (minutes <= 10) {
-        alert("minutes must be greater than 10");
-      } else {
-        let params = {
-          duration: `${hours}:${minutes}`,
-          latitude: location.coords.latitude,
-          longitude: location.coords.longitude,
-        };
-        fetch("https://car-parked-app.herokuapp.com/api/location/create", {
-          method: "POST",
-
-          headers: {
-            "Content-Type": "application/json",
-            token
-                      },
-          body: JSON.stringify(params),
-        })
-          .then((res) => {
-            document.getElementById("hours").value = '';
-            document.getElementById("minutes").value = '';
-            document.getElementById("alert").style.display = "block";
-            document.getElementById("alert").innerHTML = "Time and Location added Succesfully";
-
-            setTimeout(() => {
-              document.getElementById("alert").style.display = "none";
-
-            }, 3000);
-
-          })
-          .catch((err) => console.log(err, "err"));
-      }
-    }
-    // function for get user current location 
-
-    function getLocation() {
-      if (navigator.geolocation) {
-        // timeout at 60000 milliseconds (60 seconds)
-        var options = { timeout: 60000 };
-        navigator.geolocation.getCurrentPosition(
-          showLocation,
-          errorHandler,
-          options
-        );
-      } else {
-        alert("Sorry, browser does not support geolocation!");
-      }
-    }
-
-    // api for get remainging time
-
-    function getRemaningTime() {
-      var token = JSON.parse(localStorage.getItem("user_token"))
-
-      fetch('https://car-parked-app.herokuapp.com/api/location/get', {
-        method: 'get',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
-        headers: {
-          'Content-Type': 'application/json',
-          token
-        },
-
-      }).then(res => res.json().then(ress => {
-        let date = new Date(ress.milliseconds).toISOString()
-        if (ress.milliseconds == 600000) {
-          document.getElementById("alert").style.display = "block";
-          document.getElementById("alert").innerHTML = "You should head back to your car in [remaining time for the time stamp where location was saved] in order to avoid any fines given by fines Victoria to avoid any delays.";
-          setTimeout(() => {
-            document.getElementById("alert").style.display = "none";
-          }, 3000);
-        } else if (ress.milliseconds == 0) {
-          document.getElementById("alert").style.display = "block";
-          document.getElementById("alert").innerHTML = "Your Time hasbeen Up!!!";
-
-          setTimeout(() => {
-            document.getElementById("alert").style.display = "none";
-
-          }, 3000);
-
+    <style>
+        .alert {
+            padding: 20px;
+            background-color: #f44336;
+            color: white;
         }
-      })
-      ).catch(err => console.log(err, 'err'))
-    }
-    getRemaningTime()
-    setInterval(function () {
-      getRemaningTime()
-    }, 200000);
+        
+        .closebtn {
+            margin-left: 15px;
+            color: white;
+            font-weight: bold;
+            float: right;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .closebtn:hover {
+            color: black;
+        }
+    </style>
+    <script type="text/javascript">
+        window.history.forward();
 
-  </script>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Car Parking</title>
-  <link href="../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="../assets/css/style.css" rel="stylesheet" />
-  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
-  <link href="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css" rel="stylesheet" />
-  <script src="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js"></script>
-  <style>
-    #map {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 50%;
-      float: right;
-      margin-top: 25px;
-      margin-bottom: 25px;
-      margin-left: 15px;
-      /* display: flex; */
-    }
+        function noBack() {
+            window.history.forward();
+        }
 
-    @media screen and (max-width: 960px) {
-      #map {
-        width: 90%;
-        height: 60%;
-        margin-top: 15px;
-        margin-left: 0px;
+        function preventBack() {
+            window.history.forward();
+        }
+        setTimeout(preventBack(), 0);
+        window.onunload = function() {
+            null
+        };
+    </script>
+    <script type="text/javascript">
+        // show user current location
+        function showLocation(position) {
+            callApi(position);
+        }
 
-      }
+        function errorHandler(err) {
+            if (err.code == 1) {
+                alert("Error: Access is denied!");
+            } else if (err.code == 2) {
+                alert("Error: Position is unavailable!");
+            }
+        }
 
-      .parked {
-        margin-top: -70%
-      }
-    }
+        function callApi(location) {
+            // function for get user current location 
+            let resasdasd = document.getElementById("mapholder");
+            var hours = document.getElementById("hours").value;
+            var minutes = document.getElementById("minutes").value;
+            if (minutes > 59) {
+                alert("minutes must be less than 60");
+            }
+            if (minutes <= 10) {
+                alert("minutes must be greater than 10");
+            } else {
+                let params = {
+                    duration: `${hours}:${minutes}`,
+                    latitude: location.coords.latitude,
+                    longitude: location.coords.longitude,
+                };
+                fetch("https://car-parked-app.herokuapp.com/api/location/create", {
+                        method: "POST",
 
-    .marker {
-      background-image: url("./map.png");
-      background-size: cover;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      cursor: pointer;
-    }
-  </style>
+                        headers: {
+                            "Content-Type": "application/json",
+                            token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InpvaGFpYi5hbHZpMTJAZ21haWwuY29tIiwidXNlcklkIjoiNjA4MzE2YjM4YzE5OGMxODIwZTA1M2VjIiwiaWF0IjoxNjE5MjMyMjExLCJleHAiOjE2MTk0MDUwMTF9.3WAKivXTSmbDeIjbG9BkBaFWeaTS94je8smd5s4Q5hM",
+                        },
+                        body: JSON.stringify(params),
+                    })
+                    .then((res) => {
+                        document.getElementById("hours").value = '';
+                        document.getElementById("minutes").value = '';
+                        document.getElementById("alert").style.display = "block";
+                        document.getElementById("alert").innerHTML = "Time and Location added Succesfully";
+
+                        setTimeout(() => {
+                            document.getElementById("alert").style.display = "none";
+
+                        }, 3000);
+
+                    })
+                    .catch((err) => console.log(err, "err"));
+            }
+        }
+        // function for get user current location 
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                // timeout at 60000 milliseconds (60 seconds)
+                var options = {
+                    timeout: 60000
+                };
+                navigator.geolocation.getCurrentPosition(
+                    showLocation,
+                    errorHandler,
+                    options
+                );
+            } else {
+                alert("Sorry, browser does not support geolocation!");
+            }
+        }
+
+        // api for get remainging time
+
+        function getRemaningTime() {
+            fetch('https://car-parked-app.herokuapp.com/api/location/get', {
+                method: 'get',
+                mode: 'cors',
+                cache: 'no-cache',
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json',
+                    token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InpvaGFpYi5hbHZpMTJAZ21haWwuY29tIiwidXNlcklkIjoiNjA4MzE2YjM4YzE5OGMxODIwZTA1M2VjIiwiaWF0IjoxNjE5MjMyMjExLCJleHAiOjE2MTk0MDUwMTF9.3WAKivXTSmbDeIjbG9BkBaFWeaTS94je8smd5s4Q5hM",
+                },
+
+            }).then(res => res.json().then(ress => {
+                let date = new Date(ress.milliseconds).toISOString()
+                if (ress.milliseconds == 600000) {
+                    document.getElementById("alert").style.display = "block";
+                    document.getElementById("alert").innerHTML = "You should head back to your car in [remaining time for the time stamp where location was saved] in order to avoid any fines given by fines Victoria to avoid any delays.";
+                    setTimeout(() => {
+                        document.getElementById("alert").style.display = "none";
+                    }, 3000);
+                } else if (ress.milliseconds == 0) {
+                    document.getElementById("alert").style.display = "block";
+                    document.getElementById("alert").innerHTML = "Your Time hasbeen Up!!!";
+
+                    setTimeout(() => {
+                        document.getElementById("alert").style.display = "none";
+
+                    }, 3000);
+
+                }
+            })).catch(err => console.log(err, 'err'))
+        }
+        getRemaningTime()
+        setInterval(function() {
+            getRemaningTime()
+        }, 200000);
+    </script>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Car Parking</title>
+    <link href="../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../assets/css/style.css" rel="stylesheet" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css" rel="stylesheet" />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js"></script>
+    <style>
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 50%;
+            float: right;
+            margin-top: 25px;
+            margin-bottom: 25px;
+            margin-left: 15px;
+            /* display: flex; */
+        }
+        
+        @media screen and (max-width: 960px) {
+            #map {
+                width: 90%;
+                height: 60%;
+                margin-top: 15px;
+                margin-left: 0px;
+            }
+            .parked {
+                margin-top: -70%
+            }
+        }
+        
+        .marker {
+            background-image: url("./map.png");
+            background-size: cover;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body style="background-image: url(../assets/images/background1.jpg);
 background-size: cover;">
-  <div style=" background-color: #ffffff29;
+    <div style=" background-color: #ffffff29;
 opacity: 1;  ">
 
-    <article class="card-body" style="height: 100%">
-      <div class="container">
+        <article class="card-body" style="height: 100%">
+            <div class="container">
 
-        <div class="row custom-row">
-          <div class="col-xs-6 my-form">
-            <div class="parked">
-              <div id="alert" class="alert alert-success alert-dismissible"
-                style="width:22.2rem !important; display:none">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <strong>Success!</strong>
-              </div>
-              <h3 class="card-title text-center" style="color:rgb(255 255 255)">
-                Find my Parked Car
-              </h3>
-              <h3 class="card-title" style="margin-bottom: 30px; color:rgb(255 255 255)">
-                Have you Parked your car?
-              </h3>
-              <h3 style="color: rgb(255 255 255)">How much time will you stay?</h3>
+                <div class="row custom-row">
+                    <div class="col-xs-6 my-form">
+                        <div class="parked">
+                            <div id="alert" class="alert alert-success alert-dismissible" style="width:22.2rem !important; display:none">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>Success!</strong>
+                            </div>
+                            <h3 class="card-title text-center" style="color:rgb(255 255 255)">
+                                Find my Parked Car
+                            </h3>
+                            <h3 class="card-title" style="margin-bottom: 30px; color:rgb(255 255 255)">
+                                Have you Parked your car?
+                            </h3>
+                            <h3 style="color: rgb(255 255 255)">How much time will you stay?</h3>
 
-              <form method="POST">
-                <label style="color:rgb(255 255 255)">Hours :</label>
-                <input class="form" type="number" name="hours" id="hours" maxlength="100" size="20"
-                  style="width: 200px; margin-left: 15px" />
-                <br />
-                <label style="color:rgb(255 255 255)">Minutes :</label>
-                <input class="form" name="number" type="minutes" id="minutes" maxlength="16" size="20"
-                  style="width: 200px" /><br /><br />
-              </form>
-              <input type="submit" name="submit" onclick="getLocation()" />
+                            <form method="POST">
+                                <label style="color:rgb(255 255 255)">Hours :</label>
+                                <input class="form" type="number" name="hours" id="hours" maxlength="100" size="20" style="width: 200px; margin-left: 15px" />
+                                <br />
+                                <label style="color:rgb(255 255 255)">Minutes :</label>
+                                <input class="form" name="number" type="minutes" id="minutes" maxlength="16" size="20" style="width: 200px" /><br /><br />
+                            </form>
+                            <input type="submit" id="submit" name="submit" onclick="getLocation()" />
+                        </div>
+                        <script>
+                            // axios.get('http://127.0.0.1:8000/google', (res) => {
+                            //     console.log(res)
+                            // })
+                            document.getElementById("submit").addEventListener("click", function() {
+                                    axios.get('http://127.0.0.1:8000/submit', (res) => {
+                                        console.log(res)
+                                    })
+                                }) //by edwin
+                        </script>
+
+                    </div>
+                    <div class="control-group" style="margin-top: 30px">
+                        <div class="btn-container">
+
+                        </div>
+                    </div>
+
+
+                    <div class="col-xs-6">
+                        <div style="width: 100%">
+                            <div id="map"></div>
+                            <script>
+                                // TO MAKE THE MAP APPEAR YOU MUST
+                                // ADD YOUR ACCESS TOKEN FROM
+                                // https://account.mapbox.com
+                                mapboxgl.accessToken =
+                                    "pk.eyJ1IjoiMTZrLTM4NTAiLCJhIjoiY2sxNmlwajd0MGgydDNubjYyNXMzd29jMyJ9.qNco5G3W3sri_NVZgDndZQ";
+                                if ("geolocation" in navigator) {
+                                    navigator.geolocation.getCurrentPosition((position) => {
+                                        var map = new mapboxgl.Map({
+                                            container: "map", // container id
+                                            style: "mapbox://styles/16k-3850/ck19lbwau0ebq1cqzqxunfojm", // style URL
+                                            center: [
+                                                position.coords.longitude,
+                                                position.coords.latitude,
+                                            ],
+                                            zoom: 14, // starting zoom
+                                        });
+                                        map.addControl(
+                                            new mapboxgl.GeolocateControl({
+                                                positionOptions: {
+                                                    enableHighAccuracy: true,
+                                                },
+                                                trackUserLocation: true,
+                                                zoom: 12,
+                                                // getLocation
+                                            })
+                                        );
+                                        var el = document.createElement("div");
+                                        el.className = "marker";
+
+                                        // make a marker for each feature and add it to the map
+                                        new mapboxgl.Marker(el)
+                                            .setLngLat([
+                                                position.coords.longitude,
+                                                position.coords.latitude,
+                                            ])
+
+                                        .addTo(map);
+                                    });
+                                }
+                            </script>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-          </div>
-          <div class="control-group" style="margin-top: 30px">
-            <div class="btn-container">
-
-            </div>
-          </div>
-
-
-          <div class="col-xs-6">
-            <div style="width: 100%">
-              <div id="map"></div>
-              <script>
-                // TO MAKE THE MAP APPEAR YOU MUST
-                // ADD YOUR ACCESS TOKEN FROM
-                // https://account.mapbox.com
-                mapboxgl.accessToken =
-                  "pk.eyJ1IjoiMTZrLTM4NTAiLCJhIjoiY2sxNmlwajd0MGgydDNubjYyNXMzd29jMyJ9.qNco5G3W3sri_NVZgDndZQ";
-                if ("geolocation" in navigator) {
-                  navigator.geolocation.getCurrentPosition((position) => {
-                    var map = new mapboxgl.Map({
-                      container: "map", // container id
-                      style:
-                        "mapbox://styles/16k-3850/ck19lbwau0ebq1cqzqxunfojm", // style URL
-                      center: [
-                        position.coords.longitude,
-                        position.coords.latitude,
-                      ],
-                      zoom: 14, // starting zoom
-                    });
-                    map.addControl(
-                      new mapboxgl.GeolocateControl({
-                        positionOptions: {
-                          enableHighAccuracy: true,
-                        },
-                        trackUserLocation: true,
-                        zoom: 12,
-                        // getLocation
-                      })
-                    );
-                    var el = document.createElement("div");
-                    el.className = "marker";
-
-                    // make a marker for each feature and add it to the map
-                    new mapboxgl.Marker(el)
-                      .setLngLat([
-                        position.coords.longitude,
-                        position.coords.latitude,
-                      ])
-
-                      .addTo(map);
-                  });
-                }
-              </script>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- </div> -->
-    </article>
-  </div>
+            <!-- </div> -->
+        </article>
+    </div>
 </body>
 
 </html>
